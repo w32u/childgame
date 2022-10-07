@@ -1,5 +1,6 @@
 import sys, pygame
 pygame.init()
+pygame.display.set_caption('childgame')
 
 size = width, height = 640, 480
 screen_color = (0,0,0)
