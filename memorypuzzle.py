@@ -3,22 +3,31 @@
 import random, pygame, sys
 from pygame.locals import *
 
+FPS = 60 # frames per second, the general speed of the program
+
 def getResolution():
     pygame.init()
     infoObject = pygame.display.Info()
-    return (infoObject.current_w, infoObject.current_h)
+    return infoObject.current_w/1.5, infoObject.current_h/1.5
+WINDOWWIDTH, WINDOWHEIGHT = getResolution() # size of window's width in pixels
 
-FPS = 50 # frames per second, the general speed of the program
-WINDOWWIDTH = getResolution()[0] # size of window's width in pixels
-WINDOWHEIGHT = getResolution()[1] # size of windows' height in pixels
 REVEALSPEED = 1 # speed boxes' sliding reveals and covers
 BOXSIZE = 100 # size of box height & width in pixels
 GAPSIZE = 10 # size of gap between boxes in pixels
 BOARDWIDTH = 4 # number of columns of icons
 BOARDHEIGHT = 3 # number of rows of icons
 assert (BOARDWIDTH * BOARDHEIGHT) % 2 == 0, 'Должно быть четное количество коробочек, чтобы можно было расположить пары фигур.'
-XMARGIN = int((WINDOWWIDTH - (BOARDWIDTH * (BOXSIZE + GAPSIZE))) / 2)
-YMARGIN = int((WINDOWHEIGHT - (BOARDHEIGHT * (BOXSIZE + GAPSIZE))) / 2)
+
+def getMargins():
+    global WINDOWWIDTH, WINDOWHEIGHT, BOARDWIDTH, BOARDHEIGHT, BOXSIZE, GAPSIZE
+    xmargin = int((WINDOWWIDTH - (BOARDWIDTH * (BOXSIZE + GAPSIZE))) / 2)
+    ymargin = int((WINDOWHEIGHT - (BOARDHEIGHT * (BOXSIZE + GAPSIZE))) / 2)
+    
+    return xmargin, ymargin
+XMARGIN, YMARGIN = getMargins()
+
+#XMARGIN = int((WINDOWWIDTH - (BOARDWIDTH * (BOXSIZE + GAPSIZE))) / 2)
+#YMARGIN = int((WINDOWHEIGHT - (BOARDHEIGHT * (BOXSIZE + GAPSIZE))) / 2)
 
 #            R    G    B
 GRAY     = (100, 100, 100)
@@ -48,11 +57,11 @@ ALLSHAPES = (DONUT, SQUARE, DIAMOND, LINES, OVAL)
 assert len(ALLCOLORS) * len(ALLSHAPES) * 2 >= BOARDWIDTH * BOARDHEIGHT, "Board is too big for the number of shapes/colors defined."
 
 def main():
-    global FPSCLOCK, DISPLAYSURF
+    global FPSCLOCK, DISPLAYSURF, WINDOWWIDTH, WINDOWHEIGHT
     pygame.init()
     
     FPSCLOCK = pygame.time.Clock()
-    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
+    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT),pygame.RESIZABLE)
 
     mousex = 0 # used to store x coordinate of mouse event
     mousey = 0 # used to store y coordinate of mouse event
@@ -81,6 +90,12 @@ def main():
             elif event.type == MOUSEBUTTONUP:
                 mousex, mousey = event.pos
                 mouseClicked = True
+            elif event.type == VIDEORESIZE:
+                WINDOWWIDTH = event.w
+                WINDOWHEIGHT = event.h
+                XMARGIN, YMARGIN = getMargins()
+                DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT),pygame.RESIZABLE)
+                drawBoard(mainBoard, revealedBoxes)
 
         boxx, boxy = getBoxAtPixel(mousex, mousey)
         if boxx != None and boxy != None:
