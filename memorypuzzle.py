@@ -1,5 +1,3 @@
-
-
 import random, pygame, sys
 from pygame.locals import *
 
@@ -95,7 +93,7 @@ def main():
                 WINDOWHEIGHT = event.h
                 XMARGIN, YMARGIN = getMargins()
                 DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT),pygame.RESIZABLE)
-                drawBoard(mainBoard, revealedBoxes)
+                #drawBoard(mainBoard, revealedBoxes)
 
         boxx, boxy = getBoxAtPixel(mousex, mousey)
         if boxx != None and boxy != None:
