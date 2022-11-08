@@ -1,46 +1,27 @@
-import sys, pygame
-pygame.init()
-pygame.display.set_caption('childgame')
+from tkinter import *
+import memorypuzzle, paint
 
-size = width, height = 640, 480
-screen_color = (0,0,0)
-circle_color = (255,255,255)
-pressed = False
+class Menu(Frame):
 
-screen = pygame.display.set_mode(size)
+    def __init__(self, parent):
+        Frame.__init__(self, parent)
 
-def getPos():
-    pos = pygame.mouse.get_pos()
-    return pos
-
-def drawCircle():
-    pos=getPos()
-    pygame.draw.circle(screen, circle_color, pos, 20)
+        self.parent = parent
+        self.setUI()
+    
+    def setUI(self):
+        self.parent.title("Menu_ChildGame")  # Устанавливаем название окна
+        self.pack(fill=BOTH, expand=1, side=TOP)  # Размещаем активные элементы на родительском окне
+        
+        red_btn = Button(self, text="КРАСКА", width=30,
+                         command=lambda: paint.main()) # Создание кнопки:  Установка текста кнопки, задание ширины кнопки (10 символов), функция вызываемая при нажатии кнопки.
+        red_btn.grid(row=0, column=1)
 
 def main():
-    global size, screen_color, circle_color, pressed, screen
-    
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-            
-            if pygame.mouse.get_pressed()[0]:
-                try:
-                    pressed = True
-                except AttributeError:
-                    pass
-            else:
-                pressed = False
-        
-        pygame.display.update()
-        
-        screen.fill(screen_color)
-        if pressed:
-            drawCircle()
-        
-        pygame.display.flip()
+    root = Tk()
+    root.geometry("850x500+300+300")
+    app = Menu(root)
+    root.mainloop()
 
 
 if __name__ == '__main__':
