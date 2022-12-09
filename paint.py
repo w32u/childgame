@@ -109,15 +109,7 @@ class main:
         optionmenu = Menu(menu)
         menu.add_cascade(label='Опции',menu=optionmenu)
         optionmenu.add_command(label='Очистить лист',command=self.clear)
-        optionmenu.add_command(label='Выйти',command=self.master.destroy) 
-        
-        
-
-if __name__ == '__main__':
-    root = Tk()
-    main(root)
-    root.title('ChildPaint')
-    root.mainloop()
+        optionmenu.add_command(label='Выйти',command=self.master.destroy)
 
     
 
