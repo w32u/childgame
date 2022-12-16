@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>800</width>
-    <height>480</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Главное меню</string>
   </property>
@@ -39,6 +31,33 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QPushButton" name="cubicButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>60</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>28</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Реакция (Cubic)</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -46,7 +65,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>765</width>
      <height>21</height>
     </rect>
    </property>

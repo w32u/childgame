@@ -1,4 +1,4 @@
-import sys, tkinter, pygame
+import sys, tkinter, subprocess, pygame
 import memorypuzzle, paint
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import QFile
@@ -15,6 +15,9 @@ class MainWindow(QMainWindow):
         
         self.ui.guessButton.show()
         self.ui.guessButton.clicked.connect(self.start_memorypuzzle)
+        
+        self.ui.cubicButton.show()
+        self.ui.cubicButton.clicked.connect(self.start_cubic)
     
     def start_paint(self):
         root = tkinter.Tk()
@@ -24,6 +27,10 @@ class MainWindow(QMainWindow):
     
     def start_memorypuzzle(self):
         memorypuzzle.main()
+    
+    def start_cubic(self):
+        subprocess.call(["cubic//CUBIC.exe"])
+        
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
